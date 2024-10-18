@@ -1,0 +1,1226 @@
+[
+    {
+        "Query": "List ’high’ severity tasks assigned to ’DEVU-001’ in the ’Design’ stage",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "assigned_to",
+                        "argument_value": [
+                            "DEVU-001"
+                        ]
+                    },
+                    {
+                        "argument_name": "ticket_severity",
+                        "argument_value": [
+                            "high"
+                        ]
+                    },
+                    {
+                        "argument_name": "stage_name",
+                        "argument_value": [
+                            "Design"
+                        ]
+                    },
+                    {
+                        "argument_name": "type",
+                        "argument_value": [
+                            "task"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find ’p1’ priority bugs in ’Testing’ and add to sprint",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "ticket_priority",
+                        "argument_value": [
+                            "p1"
+                        ]
+                    },
+                    {
+                        "argument_name": "stage_name",
+                        "argument_value": [
+                            "Testing"
+                        ]
+                    },
+                    {
+                        "argument_name": "type",
+                        "argument_value": [
+                            "bug"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_sprint_id",
+                "arguments": []
+            },
+            {
+                "tool_name": "add_work_items_to_sprint",
+                "arguments": [
+                    {
+                        "argument_name": "work_ids",
+                        "argument_value": "$$PREV[0]"
+                    },
+                    {
+                        "argument_name": "sprint_id",
+                        "argument_value": "$$PREV[1]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Summarize tasks created in the ’Operations’ department with ’low’ severity",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "department_name",
+                        "argument_value": [
+                            "Operations"
+                        ]
+                    },
+                    {
+                        "argument_name": "ticket_severity",
+                        "argument_value": [
+                            "low"
+                        ]
+                    },
+                    {
+                        "argument_name": "type",
+                        "argument_value": [
+                            "task"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "List all issues needing customer response and prioritize them",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "ticket_need_response",
+                        "argument_value": true
+                    },
+                    {
+                        "argument_name": "type",
+                        "argument_value": [
+                            "issue"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find all open bugs in ’REV-111’ organization assigned to ’DEVU-234’",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "ticket_status",
+                        "argument_value": [
+                            "open"
+                        ]
+                    },
+                    {
+                        "argument_name": "assigned_to",
+                        "argument_value": [
+                            "DEVU-234"
+                        ]
+                    },
+                    {
+                        "argument_name": "ticket_rev_org",
+                        "argument_value": [
+                            "REV-111"
+                        ]
+                    },
+                    {
+                        "argument_name": "type",
+                        "argument_value": [
+                            "bug"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find the current sprint ID and add a list of work items to it.",
+        "Solution": [
+            {
+                "tool_name": "get_sprint_id",
+                "arguments": []
+            },
+            {
+                "tool_name": "add_work_items_to_sprint",
+                "arguments": [
+                    {
+                        "argument_name": "work_ids",
+                        "argument_value": "['work_item_1', 'work_item_2', 'work_item_3']"
+                    },
+                    {
+                        "argument_name": "sprint_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for a work item by name and summarize its details.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "query",
+                        "argument_value": "work_item_name"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find similar work items to a given work item and prioritize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_id",
+                        "argument_value": "work_item_id"
+                    }
+                ]
+            },
+            {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Create actionable tasks from a given text and add them to the current sprint.",
+        "Solution": [
+            {
+                "tool_name": "create_actionable_tasks_from_text",
+                "arguments": [
+                    {
+                        "argument_name": "text",
+                        "argument_value": "text_with_tasks"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_sprint_id",
+                "arguments": []
+            },
+            {
+                "tool_name": "add_work_items_to_sprint",
+                "arguments": [
+                    {
+                        "argument_name": "work_ids",
+                        "argument_value": "$$PREV[0]"
+                    },
+                    {
+                        "argument_name": "sprint_id",
+                        "argument_value": "$$PREV[1]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find work items created by a user and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "who_am_i",
+                "arguments": []
+            },
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "created_by",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find work items related to a specific part and prioritize them.",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "applies_to_part",
+                        "argument_value": "part_name"
+                    }
+                ]
+            },
+            {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find work items with a specific priority and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "issue.priority",
+                        "argument_value": "priority_level"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find work items with a specific severity and prioritize them.",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "ticket.severity",
+                        "argument_value": "severity_level"
+                    }
+                ]
+            },
+            {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find work items related to a specific source channel and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "ticket.source_channel",
+                        "argument_value": "source_channel_name"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+{
+"Query": "Find work items that need a response and prioritize them.",
+"Solution": [
+    {
+        "tool_name": "works_list",
+        "arguments": [
+            {
+                "argument_name": "ticket.needs_response",
+                "argument_value": "true"
+            }
+        ]
+    },
+    {
+        "tool_name": "prioritize_objects",
+        "arguments": [
+            {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[0]"
+            }
+        ]
+    }
+]
+},
+{
+
+        "Query": "Find similar work items to the given work item ID 'don:core:dvrv-us-1:devo/0:issue/1' and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "don:core:dvrv-us-1:devo/0:issue/1"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "object_list",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for objects named 'bug' and find similar work items related to those bugs.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "object_name",
+                        "argument_value": "bug"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find similar work items to the given work item ID 'don:core:dvrv-us-1:devo/0:issue/2' and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "don:core:dvrv-us-1:devo/0:issue/2"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "object_list",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for objects named 'feature' and find similar work items related to those features.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "object_name",
+                        "argument_value": "feature"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find similar work items to the given work item ID 'don:core:dvrv-us-1:devo/0:issue/3' and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "don:core:dvrv-us-1:devo/0:issue/3"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "object_list",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for objects named 'enhancement' and find similar work items related to those enhancements.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "object_name",
+                        "argument_value": "enhancement"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find similar work items to the given work item ID 'don:core:dvrv-us-1:devo/0:issue/4' and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "don:core:dvrv-us-1:devo/0:issue/4"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "object_list",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for objects named 'task' and find similar work items related to those tasks.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "object_name",
+                        "argument_value": "task"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Find similar work items to the given work item ID 'don:core:dvrv-us-1:devo/0:issue/5' and summarize them.",
+        "Solution": [
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "don:core:dvrv-us-1:devo/0:issue/5"
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "object_list",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Query": "Search for objects named 'defect' and find similar work items related to those defects.",
+        "Solution": [
+            {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                    {
+                        "argument_name": "object_name",
+                        "argument_value": "defect"
+                    }
+                ]
+            },
+            {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                    {
+                        "argument_name": "work_item_id",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+            "query": "List work items owned by ’DEVU-789’ needing response for organization ’REV-654’",
+            "solution": [
+                {
+                    "tool_name": "works_list",
+                    "arguments": [
+                        {
+                            "argument_name": "owned_by",
+                            "argument_value": [
+                                "DEVU-789"
+                            ]
+                        },
+                {
+                "argument_name": "ticket_need_response",
+                "argument_value": true
+                },
+                {
+                "argument_name": "ticket_rev_org",
+                "argument_value": [
+                "REV-654"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "List issues with ’blocker’ severity categorized as tickets",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "ticket_severity",
+                "argument_value": [
+                "blocker"
+                ]
+                },
+                {
+                "argument_name": "type",
+                "argument_value": [
+                "ticket"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Find issues or tasks created by users ’DEVU-123’ or ’DEVU-456’",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "created_by",
+                "argument_value": [
+                "DEVU-123",
+                "DEVU-456"
+                ]
+                },
+                {
+                "argument_name": "type",
+                "argument_value": [
+                "issue",
+                "task"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Fetch ’p3’ priority work items that need customer response for ’REV-333’",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "issue.priority",
+                "argument_value": [
+                "p3"
+                ]
+                },
+                {
+                "argument_name": "ticket_need_response",
+                "argument_value": true
+                },
+                {
+                "argument_name": "ticket_rev_org",
+                "argument_value": [
+                "REV-333"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "list their high-severity tickets for ’Globex’ user",
+            "solution": [
+                {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                {
+                "argument_name": "query",
+                "argument_value": "Globex"
+                }
+                ]
+                },
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "created_by",
+                "argument_value": "$$PREV[0]"
+                },
+                {
+                "argument_name": "ticket_severity",
+                "argument_value": [
+                "high"
+                ]
+                },
+                {
+                "argument_name": "type",
+                "argument_value": [
+                "ticket"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Summarize tickets from ’support’ channel",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "ticket_source_channel",
+                "argument_value": [
+                "support"
+                ]
+                },
+                {
+                "argument_name": "type",
+                "argument_value": [
+                "ticket"
+                ]
+                }
+                ]
+                },
+                {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[0]"
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Prioritize tasks for part ’ENH-789’",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "applies_to_part",
+                "argument_value": [
+                "ENH-789"
+                ]
+                }
+                ]
+                },
+                {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[0]"
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Fetch ’medium’ severity work items in ’QA Review’ or ’Testing’",
+            "solution": [
+                {
+                "tool_name": "works_list",
+                "arguments": [
+                {
+                "argument_name": "ticket_severity",
+                "argument_value": [
+                "medium"
+                ]
+                },
+                {
+                "argument_name": "stage_name",
+                "argument_value": [
+                "QA Review",
+                "Testing"
+                ]
+                }
+                ]
+                }
+                ]
+        },
+        {
+            "query": "Summarize work items similar to don:core:dvrv-us-1:devo/0:issue/1",
+            "solution": [
+              {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                  {
+                    "argument_name": "work_id",
+                    "argument_value": "don:core:dvrv-us-1:devo/0:issue/1"
+                  }
+                ]
+              },
+              {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[0]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "What is the meaning of life?",
+            "solution": []
+          },
+          {
+            "query": "What is the weather today?",
+            "solution": []
+          },
+          {
+            "query": "Who is the president of India?",
+            "solution": []
+          },
+          {
+            "query": "Prioritize my P0 issues and add them to the current sprint",
+            "solution": [
+              {
+                "tool_name": "whoami",
+                "arguments": []
+              },
+              {
+                "tool_name": "works_list",
+                "arguments": [
+                  {
+                    "argument_name": "issue.priority",
+                    "argument_value": [
+                      "p0"
+                    ]
+                  },
+                  {
+                    "argument_name": "owned_by",
+                    "argument_value": [
+                      "$$PREV[0]"
+                    ]
+                  },
+                  {
+                    "argument_name": "type",
+                    "argument_value": [
+                      "issue"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              },
+              {
+                "tool_name": "get_sprint_id",
+                "arguments": []
+              },
+              {
+                "tool_name": "add_work_items_to_sprint",
+                "arguments": [
+                  {
+                    "argument_name": "work_ids",
+                    "argument_value": "$$PREV[2]"
+                  },
+                  {
+                    "argument_name": "sprint_id",
+                    "argument_value": "$$PREV[3]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "Summarize high severity tickets from the customer UltimateCustomer",
+            "solution": [
+              {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                  {
+                    "argument_name": "query",
+                    "argument_value": "UltimateCustomer"
+                  }
+                ]
+              },
+              {
+                "tool_name": "works_list",
+                "arguments": [
+                  {
+                    "argument_name": "ticket.rev_org",
+                    "argument_value": [
+                      "$$PREV[0]"
+                    ]
+                  },
+                  {
+                    "argument_name": "ticket.severity",
+                    "argument_value": [
+                      "high"
+                    ]
+                  },
+                  {
+                    "argument_name": "type",
+                    "argument_value": [
+                      "ticket"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "What are my all issues in the triage stage under part FEAT-123? Summarize them.",
+            "solution": [
+              {
+                "tool_name": "whoami",
+                "arguments": []
+              },
+              {
+                "tool_name": "works_list",
+                "arguments": [
+                  {
+                    "argument_name": "stage.name",
+                    "argument_value": [
+                      "triage"
+                    ]
+                  },
+                  {
+                    "argument_name": "applies_to_part",
+                    "argument_value": [
+                      "FEAT-123"
+                    ]
+                  },
+                  {
+                    "argument_name": "owned_by",
+                    "argument_value": [
+                      "$$PREV[0]"
+                    ]
+                  },
+                  {
+                    "argument_name": "type",
+                    "argument_value": [
+                      "issue"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "List all high severity tickets coming in from slack from customer Cust123 and generate a summary of them.",
+            "solution": [
+              {
+                "tool_name": "search_object_by_name",
+                "arguments": [
+                  {
+                    "argument_name": "query",
+                    "argument_value": "Cust123"
+                  }
+                ]
+              },
+              {
+                "tool_name": "works_list",
+                "arguments": [
+                  {
+                    "argument_name": "ticket.rev_org",
+                    "argument_value": [
+                      "$$PREV[0]"
+                    ]
+                  },
+                  {
+                    "argument_name": "ticket.severity",
+                    "argument_value": [
+                      "high"
+                    ]
+                  },
+                  {
+                    "argument_name": "ticket.source_channel",
+                    "argument_value": [
+                      "slack"
+                    ]
+                  },
+                  {
+                    "argument_name": "type",
+                    "argument_value": [
+                      "ticket"
+                    ]
+                  }
+                ]
+              },
+              {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "Given a customer meeting transcript T , create action items and add them to my current sprint",
+            "solution": [
+              {
+                "tool_name": "create_actionable_tasks_from_text",
+                "arguments": [
+                  {
+                    "argument_name": "text",
+                    "argument_value": "T"
+                  }
+                ]
+              },
+              {
+                "tool_name": "get_sprint_id",
+                "arguments": []
+              },
+              {
+                "tool_name": "add_work_items_to_sprint",
+                "arguments": [
+                  {
+                    "argument_name": "work_ids",
+                    "argument_value": "$$PREV[0]"
+                  },
+                  {
+                    "argument_name": "sprint_id",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Query": "Find work items related to 'FEAT-123' and prioritize them.",
+            "Solution": [
+                {
+                    "tool_name": "works_list",
+                    "arguments": [
+                        {
+                            "argument_name": "applies_to_part",
+                            "argument_value": "FEAT-123"
+                        }
+                    ]
+                },
+                {
+                    "tool_name": "prioritize_objects",
+                    "arguments": [
+                        {
+                            "argument_name": "objects",
+                            "argument_value": "$$PREV[0]"
+                        }
+                    ]
+                }
+            ]
+          },
+          {
+            "Query": "Find work items with a 'severe' priority and summarize them.",
+            "Solution": [
+                {
+                    "tool_name": "works_list",
+                    "arguments": [
+                        {
+                            "argument_name": "issue_priority",
+                            "argument_value": "severe"
+                        }
+                    ]
+                },
+                {
+                    "tool_name": "summarize_objects",
+                    "arguments": [
+                        {
+                            "argument_name": "objects",
+                            "argument_value": "$$PREV[0]"
+                        }
+                    ]
+                }
+            ]
+          },
+          {
+            "query": "Get all work items similar to TKT-123, summarize them, create issues from that summary, and prioritize them",
+            "solution": [
+              {
+                "tool_name": "get_similar_work_items",
+                "arguments": [
+                  {
+                    "argument_name": "work_id",
+                    "argument_value": "TKT-123"
+                  }
+                ]
+              },
+              {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[0]"
+                  }
+                ]
+              },
+              {
+                "tool_name": "create_actionable_tasks_from_text",
+                "arguments": [
+                  {
+                    "argument_name": "text",
+                    "argument_value": "$$PREV[1]"
+                  }
+                ]
+              },
+              {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                  {
+                    "argument_name": "objects",
+                    "argument_value": "$$PREV[2]"
+                  }
+                ]
+              }
+            ]
+          }
+    ]
+
+
+
+    
+

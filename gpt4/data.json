@@ -1,0 +1,576 @@
+[
+    {
+        "query": "List work items owned by 'DEVU-789' needing response for organization 'REV-654'",
+        "solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "owned_by",
+                        "argument_value": [
+                            "DEVU-789"
+                        ]
+                    },
+            {
+            "argument_name": "ticket_need_response",
+            "argument_value": true
+            },
+            {
+            "argument_name": "ticket_rev_org",
+            "argument_value": [
+            "REV-654"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "List issues with 'blocker' severity categorized as tickets",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "ticket_severity",
+            "argument_value": [
+            "blocker"
+            ]
+            },
+            {
+            "argument_name": "type",
+            "argument_value": [
+            "ticket"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Find issues or tasks created by users 'DEVU-123' or 'DEVU-456'",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "created_by",
+            "argument_value": [
+            "DEVU-123",
+            "DEVU-456"
+            ]
+            },
+            {
+            "argument_name": "type",
+            "argument_value": [
+            "issue",
+            "task"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Fetch 'p3' priority work items that need customer response for 'REV-333'",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "issue_priority",
+            "argument_value": [
+            "p3"
+            ]
+            },
+            {
+            "argument_name": "ticket_need_response",
+            "argument_value": true
+            },
+            {
+            "argument_name": "issue.rev_orgs",
+            "argument_value": [
+            "REV-333"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "list their high-severity tickets for 'Globex' user",
+        "solution": [
+            {
+            "tool_name": "search_object_by_name",
+            "arguments": [
+            {
+            "argument_name": "query",
+            "argument_value": "Globex"
+            }
+            ]
+            },
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "created_by",
+            "argument_value": "$$PREV[0]"
+            },
+            {
+            "argument_name": "ticket_severity",
+            "argument_value": [
+            "high"
+            ]
+            },
+            {
+            "argument_name": "type",
+            "argument_value": [
+            "ticket"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Summarize tickets from 'support' channel",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "ticket_source_channel",
+            "argument_value": [
+            "support"
+            ]
+            },
+            {
+            "argument_name": "type",
+            "argument_value": [
+            "ticket"
+            ]
+            }
+            ]
+            },
+            {
+            "tool_name": "summarize_objects",
+            "arguments": [
+            {
+            "argument_name": "objects",
+            "argument_value": "$$PREV[0]"
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Prioritize tasks for part 'ENH-789'",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "applies_to_part",
+            "argument_value": [
+            "ENH-789"
+            ]
+            },
+            {
+              "argument_name": "type", 
+              "argument_value": [
+                "task"
+                ]
+            }
+            ]
+            },
+            {
+            "tool_name": "prioritize_objects",
+            "arguments": [
+            {
+            "argument_name": "objects",
+            "argument_value": "$$PREV[0]"
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Fetch 'medium' severity work items in 'QA Review' or 'Testing'",
+        "solution": [
+            {
+            "tool_name": "works_list",
+            "arguments": [
+            {
+            "argument_name": "ticket_severity",
+            "argument_value": [
+            "medium"
+            ]
+            },
+            {
+            "argument_name": "stage_name",
+            "argument_value": [
+            "QA Review",
+            "Testing"
+            ]
+            }
+            ]
+            }
+            ]
+    },
+    {
+        "query": "Summarize work items similar to don:core:dvrv-us-1:devo/0:issue/1",
+        "solution": [
+          {
+            "tool_name": "get_similar_work_items",
+            "arguments": [
+              {
+                "argument_name": "work_id",
+                "argument_value": "don:core:dvrv-us-1:devo/0:issue/1"
+              }
+            ]
+          },
+          {
+            "tool_name": "summarize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[0]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "What is the meaning of life?",
+        "solution": []
+      },
+      {
+        "query": "What is the weather today?",
+        "solution": []
+      },
+      {
+        "query": "Who is the president of India?",
+        "solution": []
+      },
+      {
+        "query": "Prioritize my P0 issues and add them to the current sprint",
+        "solution": [
+          {
+            "tool_name": "who_am_i",
+            "arguments": []
+          },
+          {
+            "tool_name": "works_list",
+            "arguments": [
+              {
+                "argument_name": "owned_by",
+                "argument_value": [
+                  "$$PREV[0]"
+                ]
+              },
+              {
+                "argument_name": "issue_priority",
+                "argument_value": [
+                  "p0"
+                ]
+              },
+              {
+                "argument_name": "type",
+                "argument_value": [
+                  "issue"
+                ]
+              }
+            ]
+          },
+          {
+            "tool_name": "prioritize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          },
+          {
+            "tool_name": "get_sprint_id",
+            "arguments": []
+          },
+          {
+            "tool_name": "add_work_items_to_sprint",
+            "arguments": [
+              {
+                "argument_name": "work_ids",
+                "argument_value": "$$PREV[2]"
+              },
+              {
+                "argument_name": "sprint_id",
+                "argument_value": "$$PREV[3]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "Summarize high severity tickets from the customer UltimateCustomer",
+        "solution": [
+          {
+            "tool_name": "search_object_by_name",
+            "arguments": [
+              {
+                "argument_name": "query",
+                "argument_value": "UltimateCustomer"
+              }
+            ]
+          },
+          {
+            "tool_name": "works_list",
+            "arguments": [
+              {
+                "argument_name": "ticket_rev_org",
+                "argument_value": [
+                  "$$PREV[0]"
+                ]
+              },
+              {
+                "argument_name": "ticket_severity",
+                "argument_value": [
+                  "high"
+                ]
+              },
+              {
+                "argument_name": "type",
+                "argument_value": [
+                  "ticket"
+                ]
+              }
+            ]
+          },
+          {
+            "tool_name": "summarize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "What are my all issues in the triage stage under part FEAT-123? Summarize them.",
+        "solution": [
+          {
+            "tool_name": "who_am_i",
+            "arguments": []
+          },
+          {
+            "tool_name": "works_list",
+            "arguments": [
+              {
+                "argument_name": "applies_to_part",
+                "argument_value": [
+                  "FEAT-123"
+                ]
+              },
+              {
+                "argument_name": "created_by",
+                "argument_value": [
+                  "$$PREV[0]"
+                ]
+              },
+              {
+                "argument_name": "stage_name",
+                "argument_value": [
+                  "triage"
+                ]
+              },
+              {
+                "argument_name": "type",
+                "argument_value": [
+                  "issue"
+                ]
+              }
+            ]
+          },
+          {
+            "tool_name": "summarize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "List all high severity tickets coming in from slack from customer Cust123 and generate a summary of them.",
+        "solution": [
+          {
+            "tool_name": "search_object_by_name",
+            "arguments": [
+              {
+                "argument_name": "query",
+                "argument_value": "Cust123"
+              }
+            ]
+          },
+          {
+            "tool_name": "works_list",
+            "arguments": [
+              {
+                "argument_name": "ticket_rev_org",
+                "argument_value": [
+                  "$$PREV[0]"
+                ]
+              },
+              {
+                "argument_name": "ticket_severity",
+                "argument_value": [
+                  "high"
+                ]
+              },
+              {
+                "argument_name": "ticket_source_channel",
+                "argument_value": [
+                  "slack"
+                ]
+              },
+              {
+                "argument_name": "type",
+                "argument_value": [
+                  "ticket"
+                ]
+              }
+            ]
+          },
+          {
+            "tool_name": "summarize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "Given a customer meeting transcript T , create action items and add them to my current sprint",
+        "solution": [
+          {
+            "tool_name": "create_actionable_tasks_from_text",
+            "arguments": [
+              {
+                "argument_name": "text",
+                "argument_value": "T"
+              }
+            ]
+          },
+          {
+            "tool_name": "get_sprint_id",
+            "arguments": []
+          },
+          {
+            "tool_name": "add_work_items_to_sprint",
+            "arguments": [
+              {
+                "argument_name": "work_ids",
+                "argument_value": "$$PREV[0]"
+              },
+              {
+                "argument_name": "sprint_id",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "query": "Find work items related to 'FEAT-123' and prioritize them.",
+        "solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "applies_to_part",
+                        "argument_value": "FEAT-123"
+                    }
+                ]
+            },
+            {
+                "tool_name": "prioritize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+      },
+      {
+        "query": "Find work items with a 'severe' priority and summarize them.",
+        "solution": [
+            {
+                "tool_name": "works_list",
+                "arguments": [
+                    {
+                        "argument_name": "issue_priority",
+                        "argument_value": ["severe"]
+                    }
+                ]
+            },
+            {
+                "tool_name": "summarize_objects",
+                "arguments": [
+                    {
+                        "argument_name": "objects",
+                        "argument_value": "$$PREV[0]"
+                    }
+                ]
+            }
+        ]
+      },
+      {
+        "query": "Get all work items similar to TKT-123, summarize them, create issues from that summary, and prioritize them",
+        "solution": [
+          {
+            "tool_name": "get_similar_work_items",
+            "arguments": [
+              {
+                "argument_name": "work_id",
+                "argument_value": "TKT-123"
+              }
+            ]
+          },
+          {
+            "tool_name": "summarize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[0]"
+              }
+            ]
+          },
+          {
+            "tool_name": "create_actionable_tasks_from_text",
+            "arguments": [
+              {
+                "argument_name": "text",
+                "argument_value": "$$PREV[1]"
+              }
+            ]
+          },
+          {
+            "tool_name": "prioritize_objects",
+            "arguments": [
+              {
+                "argument_name": "objects",
+                "argument_value": "$$PREV[2]"
+              }
+            ]
+          }
+        ]
+      }  
+]
